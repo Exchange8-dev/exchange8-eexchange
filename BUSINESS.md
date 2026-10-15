@@ -33,11 +33,11 @@
 
 | Concern | Owning service/surface |
 |---|---|
-| Order matching, books of record | Ex8:Gateway / Ex8:ME |
-| Market data publication | Ex8:MD |
-| Halting rules, market protection logic | Ex8:Gateway / market-protection engine |
-| Trade bust/amend business decision | Ex8:Clearing (app only issues the request) |
-| Detecting suspicious behavior | Ex8:Surveillance |
+| Order matching, books of record | Exchange8:Gateway / Exchange8:ME |
+| Market data publication | Exchange8:MD |
+| Halting rules, market protection logic | Exchange8:Gateway / market-protection engine |
+| Trade bust/amend business decision | Exchange8:Clearing (app only issues the request) |
+| Detecting suspicious behavior | Exchange8:Surveillance |
 | Customer, session, feed, and routing administration | Sentin8:Dash RFW admin pages |
 | Sign-in, identity, session security | Sentin8:Auth + Sentin8:BFF (platform shell) |
 | App listing/publishing | `app-listing.json` → Sentin8:App |
@@ -73,9 +73,9 @@ The app emits no platform events of its own — it is a pure client. The
 business events it **triggers** (through backend services) are the
 standard exchange domain outcomes:
 
-- Order accepted / rejected / filled / cancelled — raised by Ex8:Gateway /
-  Ex8:ME when the trader's order is admitted and as it progresses.
-- Trade busted — raised by Ex8:Clearing when an ops bust succeeds.
+- Order accepted / rejected / filled / cancelled — raised by Exchange8:Gateway /
+  Exchange8:ME when the trader's order is admitted and as it progresses.
+- Trade busted — raised by Exchange8:Clearing when an ops bust succeeds.
 - Instrument state changed (halt/resume) — raised by the gateway when the
   ops action succeeds.
 
@@ -125,11 +125,11 @@ current state, not a stale picture.
 |---|---|
 | Sentin8:BFF | All business traffic; grants delegated access, keeps tokens off devices |
 | Sentin8:Auth | Sign-in and session establishment before any surface is usable |
-| Ex8:Gateway | Order entry and lifecycle events; instrument halts |
-| Ex8:ME | The matching outcomes the blotter and tape display |
-| Ex8:MD | Depth, BBO, and tape publication |
-| Ex8:Clearing | Trade bust execution |
-| Ex8:Surveillance | Alert/case supply |
+| Exchange8:Gateway | Order entry and lifecycle events; instrument halts |
+| Exchange8:ME | The matching outcomes the blotter and tape display |
+| Exchange8:MD | Depth, BBO, and tape publication |
+| Exchange8:Clearing | Trade bust execution |
+| Exchange8:Surveillance | Alert/case supply |
 | Sentin8:App | App Store listing and distribution contract (`app-listing.json`) |
 | `sdk/flutter/sentin8_flutter` | Shell, theme, and authenticated transport the app composes |
 

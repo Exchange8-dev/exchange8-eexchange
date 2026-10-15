@@ -24,8 +24,8 @@
 | HTTP + SSE transport, OAuth bootstrap, token custody | `sdk/flutter/sentin8_flutter` (`Bff8ApiClient`) |
 | Token issuance, session, step-up authentication | Sentin8:Auth (via BFF) |
 | Token exchange/down-scoping, proxy routing, tenant resolution | Sentin8:BFF |
-| Order matching, books of record, market data | Ex8 services (gateway, me, md) |
-| Halts, busts, surveillance cases | Ex8 services (gateway/clearing, surveillance) |
+| Order matching, books of record, market data | Exchange8 services (gateway, me, md) |
+| Halts, busts, surveillance cases | Exchange8 services (gateway/clearing, surveillance) |
 | Admin surfaces (market-state wall, cascade, sessions, feeds) | Sentin8:Dash RFW pages (per-service `/v1/admin/ui/*`) |
 | App-Store listing contract | `app-listing.json` → Sentin8:App |
 
@@ -41,11 +41,11 @@ graph TD
     APP -- "HTTPS session cookie<br/>HTTP /proxy/exchange8/v1/*" --> BFF["Sentin8:BFF"]
     APP -- "SSE /subscribe" --> BFF
     subgraph platform["Sentin8 platform (trusted)"]
-        BFF -- "delegated tokens" --> GW["Ex8:Gateway"]
-        BFF --> MD["Ex8:MD"]
-        BFF --> CL["Ex8:Clearing"]
-        BFF --> SV["Ex8:Surveillance"]
-        BFF --> MB["Ex8:ME / OMS"]
+        BFF -- "delegated tokens" --> GW["Exchange8:Gateway"]
+        BFF --> MD["Exchange8:MD"]
+        BFF --> CL["Exchange8:Clearing"]
+        BFF --> SV["Exchange8:Surveillance"]
+        BFF --> MB["Exchange8:ME / OMS"]
     end
 ```
 
@@ -125,7 +125,7 @@ sequenceDiagram
     participant OE as OrderEntryPage
     participant API as Bff8ApiClient (façade)
     participant BFF as Sentin8:BFF
-    participant GW as Ex8:Gateway
+    participant GW as Exchange8:Gateway
 
     U->>OE: fill symbol/side/qty/limit/TIF
     OE->>OE: build map (cl_ord_id, side, qty, tif,…)
@@ -151,7 +151,7 @@ sequenceDiagram
     participant DL as DepthLadderPage / TapePage
     participant API as Bff8ApiClient (façade)
     participant BFF as Sentin8:BFF
-    participant MD as Ex8:MD
+    participant MD as Exchange8:MD
 
     DL->>API: subscribe /subscribe/exchange8/md/EX8A
     API->>BFF: SSE GET /subscribe (exchange8:md:*:read)
@@ -197,7 +197,7 @@ erDiagram
 - `_Book` per symbol — `asks`/`bids` lists of `_Level(price, qty)`, BBO
   label best-of-list (`'—'` for a side with no levels).
 - `_Print` — trade id, price, qty; render-capped at the latest 50.
-- Persistence: none. Server state lives in Ex8 schemas (`gateway.*`,
+- Persistence: none. Server state lives in Exchange8 schemas (`gateway.*`,
   `me.*`, `md.*` — owned by the respective services, out of scope); the
   client is a pure projection that refills from SSE snapshot joins.
 
@@ -222,7 +222,7 @@ service's design):
 ```mermaid
 sequenceDiagram
     autonumber
-    participant EX as Ex8 service (me/gateway/md)
+    participant EX as Exchange8 service (me/gateway/md)
     participant BUS as Sentin8:Bus
     participant BFF as Sentin8:BFF
     participant APP as eExchange (façade caches)
