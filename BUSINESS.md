@@ -1,4 +1,4 @@
-# BUSINESS.md: eExchange — Business Requirements & Functionality
+# eExchange — Business Requirements & Functionality
 
 > Audience: product owners, business analysts, and anyone evaluating what
 > eExchange **does for the business**. For architecture read `README.md`;
