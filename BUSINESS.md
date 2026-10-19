@@ -1,4 +1,4 @@
-# eExchange — Business Requirements & Functionality
+# eExchange - Business Requirements & Functionality
 
 > Audience: product owners, business analysts, and anyone evaluating what
 > eExchange **does for the business**. For architecture read `README.md`;
@@ -7,7 +7,7 @@
 ## 1. Business Purpose
 
 - Give exchange traders a single mobile/desktop surface to place, track,
-  and manage orders on Exchange8 — without a FIX console or terminal.
+  and manage orders on Exchange8 - without a FIX console or terminal.
 - Give exchange operations staff the daily controls they need on the
   floor: halting a security, busting an erroneous trade, and seeing what
   surveillance flagged.
@@ -48,7 +48,7 @@
 
 | Capability | Business rule |
 |---|---|
-| Submit order | An order carries its own client order id; resubmitting after a network failure is safe — the exchange never accepts the same order twice for the same id |
+| Submit order | An order carries its own client order id; resubmitting after a network failure is safe - the exchange never accepts the same order twice for the same id |
 | Order lifecycle visibility | The blotter shows only live order state as the exchange reports it; rejected orders never appear as working |
 | Price entry | Blank limit means market participation; a filled limit means a priced order |
 
@@ -69,18 +69,18 @@
 
 ## 4. Business Events (Outbound)
 
-The app emits no platform events of its own — it is a pure client. The
+The app emits no platform events of its own - it is a pure client. The
 business events it **triggers** (through backend services) are the
 standard exchange domain outcomes:
 
-- Order accepted / rejected / filled / cancelled — raised by Exchange8:Gateway /
+- Order accepted / rejected / filled / cancelled - raised by Exchange8:Gateway /
   Exchange8:ME when the trader's order is admitted and as it progresses.
-- Trade busted — raised by Exchange8:Clearing when an ops bust succeeds.
-- Instrument state changed (halt/resume) — raised by the gateway when the
+- Trade busted - raised by Exchange8:Clearing when an ops bust succeeds.
+- Instrument state changed (halt/resume) - raised by the gateway when the
   ops action succeeds.
 
 **Inbound (consumed by the app):** order lifecycle updates, book depth
-deltas, and trade prints — all delivered live so business users act on the
+deltas, and trade prints - all delivered live so business users act on the
 current state, not a stale picture.
 
 ## 5. Business Rules & Invariants
@@ -90,7 +90,7 @@ current state, not a stale picture.
 2. The exchange (server side), never the app, decides whether a user may
    perform an action; the app may hide features the user lacks scope for,
    but the server is the gate.
-3. A retried order submit can never double-execute — duplicate protection
+3. A retried order submit can never double-execute - duplicate protection
    is by client order id.
 4. Secrets, session tickets, and credentials never live on the device in
    the app's keeping.
@@ -146,7 +146,7 @@ current state, not a stale picture.
 6. A bust by trade id reaches the backend with step-up authentication
    enforced by the backend, and its outcome is displayed.
 7. Surveillance cases render with detector and severity.
-8. The e2e UI suite passes with no direct database or backend access —
+8. The e2e UI suite passes with no direct database or backend access -
    everything through the UI and the BFF proxy.
 
 ## 10. Open Business Questions
@@ -158,7 +158,7 @@ current state, not a stale picture.
   risk preview: pending business sign-off on the ticket layout.
 - Whether market-control parity (per-book state wall, market-wide halt)
   belongs in the app at all or stays a Dash RFW admin surface only.
-- Alert acknowledgement from the app (currently read-only) — needs a
+- Alert acknowledgement from the app (currently read-only) - needs a
   business decision on scope for operators on mobile.
 
 ---

@@ -1,25 +1,25 @@
-# README.md: eExchange — Exchange8 Trading App
+# README.md: eExchange - Exchange8 Trading App
 
 ## 1. Summary
 
 eExchange is the Exchange8 vertical's Flutter client for traders and
 exchange operations staff: live order blotter, order entry ticket, depth
 ladder with BBO, trade tape, and the operations console (halts, busts). It
-is a **BFF-only** client — every backend call routes through Sentin8:BFF
+is a **BFF-only** client - every backend call routes through Sentin8:BFF
 (`/proxy/exchange8/...`, `/subscribe` SSE); no service is ever addressed
 directly. The app is a composition of the platform Flutter library
 (`sdk/flutter/sentin8_flutter`) with the Exchange8 brand.
 
 ## 2. Motivation
 
-Exchange8 needs the trader and operations surfaces available anywhere —
-mobile/desktop — without a FIX console or a fat desktop terminal:
+Exchange8 needs the trader and operations surfaces available anywhere -
+mobile/desktop - without a FIX console or a fat desktop terminal:
 
 - A trader must see live order state (blotter), submit orders, and read
   the market (depth, BBO, tape) from a thin, tenant-aware client.
 - Operations staff need halt/resume and trade-bust actions plus a read
   surface for surveillance alerts.
-- OAuth tokens never reach the device — the BFF holds tokens server-side
+- OAuth tokens never reach the device - the BFF holds tokens server-side
   (architecture-principles §4.7), so the app keeps no secrets.
 - Every backend surface is already scope-gated; feature gating in the app
   follows the provisioned scope map, while the server remains the sole
@@ -53,24 +53,24 @@ graph TD
     BFF -- "delegated tokens" --> SVC[Exchange8 services]
 ```
 
-- **AppShell** — bottom navigation across the five surfaces; provides the
+- **AppShell** - bottom navigation across the five surfaces; provides the
   `BffClientScope` inherited widget so all pages share one client instance.
-- **Bff8ApiClient** (app-local façade) — wraps the platform
+- **Bff8ApiClient** (app-local façade) - wraps the platform
   `sdk/flutter/sentin8_flutter` transport: typed `get`/`post`,
   `subscribe(channel)` SSE stream, and the order/book/tape caches.
-- **Pages** — `StreamBuilder` over SSE channels (blotter, depth, tape),
+- **Pages** - `StreamBuilder` over SSE channels (blotter, depth, tape),
   forms issuing BFF POSTs (order entry, bust), and a `FutureBuilder` GET
   (alerts).
 
 ## 4. Key Traits and Data Structures
 
-- `Bff8ApiClient` (app-local): the façade pages use — HTTP verbs, SSE
+- `Bff8ApiClient` (app-local): the façade pages use - HTTP verbs, SSE
   subscription, and the order/book/tape caches. Concrete transport comes
   from `sdk/flutter/sentin8_flutter`.
 - `BffClientScope`: `InheritedWidget` carrying the authenticated client
   down the widget tree; `BffClientScope.of(context)` is the pages' single
   access point.
-- `BffEvent`: one SSE event — channel name + decoded JSON payload.
+- `BffEvent`: one SSE event - channel name + decoded JSON payload.
 - `OrderRow`: the blotter row (`cl_ord_id`, status, qty, limit, timestamp).
 - `BffError`: transport/HTTP errors surfaced to the UI as messages.
 
@@ -81,13 +81,13 @@ graph TD
   + scope down-scoping stay server-side.
 - **InheritedWidget scope (rejected: global singleton).** A root-scoped
   inherited widget keeps the client explicit and injectable in widget
-  tests — no mutable global state.
+  tests - no mutable global state.
 - **Façade-owned caches (rejected: per-page ephemeral state).** SSE events
   arrive incrementally while blotter/ladder/tape need the accumulated
   picture regardless of which page mounted first; one façade-owned cache
   keeps every page consistent.
 - **SSE for market data (rejected: WebSocket).** Depth/BBO/tape/blotter are
-  one-way server→client push — the platform subscription tier (`/subscribe`)
+  one-way server→client push - the platform subscription tier (`/subscribe`)
   is SSE; WebSocket is reserved for the bidirectional chat tier
   (architecture-principles §4.7a).
 - **StreamBuilder over a state-management library.** Each surface is one
@@ -102,7 +102,7 @@ graph TD
   read-only views (sorted/sliced at build time); SSE handlers are the only
   writers.
 - **Idempotent order submission.** The ticket generates `cl_ord_id` per
-  submit and the gateway dedupes on it — a retry after transport failure
+  submit and the gateway dedupes on it - a retry after transport failure
   must reuse the id.
 - **No secrets on device.** No tokens, session keys, or FIX credentials are
   persisted by the app; the platform shell owns authentication.
