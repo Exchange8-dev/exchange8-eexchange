@@ -1,4 +1,4 @@
-# README.md: eExchange - Exchange8 Trading App
+# eExchange - Exchange8 Trading App
 
 ## 1. Summary
 
