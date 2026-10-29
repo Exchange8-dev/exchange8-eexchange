@@ -3,8 +3,8 @@
 // SPDX-FileCopyrightText: Copyright Contributors to the Exchange8:EExchange
 // SPDX-License-Identifier: Apache-2.0
 
-// App shell — navigation across the trader/ops surfaces (blotter,
-// ticket, depth, tape, ops — DESIGN.md §2). The BFF client scope wraps
+// App shell - navigation across the trader/ops surfaces (blotter,
+// ticket, depth, tape, ops - DESIGN.md §2). The BFF client scope wraps
 // the tree.
 
 import 'package:flutter/material.dart';

@@ -3,11 +3,11 @@
 // SPDX-FileCopyrightText: Copyright Contributors to the Exchange8:EExchange
 // SPDX-License-Identifier: Apache-2.0
 
-// BFF client wiring (trader/ops surfaces — DESIGN.md §2): Bff8ApiClient
+// BFF client wiring (trader/ops surfaces - DESIGN.md §2): Bff8ApiClient
 // + scope map + SSE subscription surface + order/depth/tape caches the
 // pages consume.
 //
-// All backend access routes through Sentin8:BFF /proxy/exchange8/... —
+// All backend access routes through Sentin8:BFF /proxy/exchange8/...  - 
 // no direct service calls (BFF pattern, DESIGN.md §1).
 
 import 'dart:async';
@@ -40,7 +40,7 @@ class OrderRow {
 }
 
 /// The BFF client surface the pages use. The concrete HTTP/SSE transport
-/// comes from `sdk/flutter/sentin8_flutter`'s Bff8ApiClient — this module
+/// comes from `sdk/flutter/sentin8_flutter`'s Bff8ApiClient - this module
 /// wraps it with exchange8's channels and caches.
 class Bff8ApiClient {
   final Future<Map<String, dynamic>> Function(String method, String path, Map<String, dynamic>? body) _http;
@@ -66,7 +66,7 @@ class _Book {
   final List<_Level> asks = [];
   final List<_Level> bids = [];
   String get bboLabel =>
-      '${bids.isEmpty ? '—' : bids.first.price} / ${asks.isEmpty ? '—' : asks.first.price}';
+      '${bids.isEmpty ? ' - ' : bids.first.price} / ${asks.isEmpty ? ' - ' : asks.first.price}';
 }
 
 class _Level {

@@ -3,11 +3,11 @@
 // SPDX-FileCopyrightText: Copyright Contributors to the Exchange8:EExchange
 // SPDX-License-Identifier: Apache-2.0
 
-// eExchange — Exchange8 trading app entry.
+// eExchange - Exchange8 trading app entry.
 //
 // BFF-only client (sentin8_flutter shell): every backend call routes
 // through Bff8ApiClient → Sentin8:BFF /proxy/exchange8/...; no direct
-// service access (BFF pattern — DESIGN.md §1).
+// service access (BFF pattern - DESIGN.md §1).
 //
 // The trader/ops surfaces mount into this shell; the scope map and
 // SSE subscription wiring live in bff/ (DESIGN.md §2).

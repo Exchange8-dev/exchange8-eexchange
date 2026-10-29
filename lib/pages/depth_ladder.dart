@@ -3,7 +3,7 @@
 // SPDX-FileCopyrightText: Copyright Contributors to the Exchange8:EExchange
 // SPDX-License-Identifier: Apache-2.0
 
-// Depth ladder + BBO: SSE deltas from /subscribe/exchange8/md —
+// Depth ladder + BBO: SSE deltas from /subscribe/exchange8/md  - 
 // snapshot join then incremental levels (md snapshot contract;
 // DESIGN.md §4).
 
